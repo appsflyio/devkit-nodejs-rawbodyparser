@@ -1,0 +1,14 @@
+{
+  "name": "raw-json-body-parser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karthik Thirumalasetti",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2"
+  }
+}
