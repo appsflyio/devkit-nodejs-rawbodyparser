@@ -9,7 +9,7 @@ module.exports = function(bodyParser){
                         next();
                     } else {
                         let error = new Error();
-                        error.status = 500;
+                        error.status = 400;
                         error.message = "ParseError: Couldn't pass the body of the requested according the content type";
                         next(error);
                     }
