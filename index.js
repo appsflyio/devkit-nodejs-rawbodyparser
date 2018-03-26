@@ -1,19 +1,17 @@
+var concat = require("concat-stream");
 module.exports = function(bodyParser){
     return function(req, res, next){
         try {
             if(req.method === 'POST') {
-                bodyParser.raw({type:"application/json"})(req, res, function () {
-                    req.rawBody = req.body;
-                    if(isJsonString(req.rawBody.toString("UTF-8"))) {
-                        req.body = JSON.parse(req.rawBody.toString("UTF-8"));
-                        next();
-                    } else {
-                        let error = new Error();
-                        error.status = 400;
-                        error.message = "ParseError: Couldn't pass the body of the requested according the content type";
-                        next(error);
-                    }
-                });
+                if(req.headers["content-type"] == "application/json"){
+                    bodyParser()(req, res, function(){});
+                }
+                else{
+                    req.pipe(concat({}, function(data){
+                        req.body = data.toString("utf8");
+                    }));
+                }
+                next();
             } else {
                 next();
             }
